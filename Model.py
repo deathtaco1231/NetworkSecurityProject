@@ -4,7 +4,9 @@ from keras.utils import img_to_array
 import numpy as np
 from PIL import Image
 
-model = load_model("ddos_detection_model.h5")
+def loadmodel():
+    global model
+    model = load_model("ddos_detection_model.h5")
 
 def predict_result(line):
     pred = model.predict(line)

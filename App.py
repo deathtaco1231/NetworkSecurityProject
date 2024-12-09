@@ -1,4 +1,5 @@
-from Model import predict_result
+from Model import predict_result, loadmodel
+from CreateModel import preprocess, retrain_model
 import csv
 import numpy as np
 import pandas as pd
@@ -8,6 +9,7 @@ import string
 import matplotlib.pyplot as plt
 
 def main():
+    experiment_1()
     experiment_2()
 
 def duplicate_file(oldfile, newfile): # Creates the result CSV file, and adds the predicted label column to format it in preparation to have AI model results inserted
@@ -45,6 +47,9 @@ def plot_prediction_dataframe(pred):
 
 def experiment_2(): # Each experiment will have its own method, main just needs to be updated to call each but the structure remains the same except for file names/paths
     print("Experiment 2: LOIT DDoS")
+    preprocess(r"Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv")
+    retrain_model()
+    loadmodel()
     testfile = "test1.csv" # Just follow this file structure for each experiment, with test data (unlabeled) going here
     resultfile = "results1.csv" # Name/path to result CSV file (which will be created for you)
     resulttxt = "result1.txt" # Name/path to the result column ONLY (along with information printed to console being logged here), also created for you.
@@ -52,6 +57,20 @@ def experiment_2(): # Each experiment will have its own method, main just needs 
     pred = predict_packet_types_from_test_data(testfile)
     normal, sus = write_results_to_result_file(pred, resultfile, resulttxt)
     print("Expected Benign: " + str(0) + ", DDoS: " + str(2437) + "\nResult Benign: " + str(normal) + ", DDoS: " + str(sus))
+    plot_prediction_dataframe(pred)
+
+def experiment_1():
+    print("Experiment 1: Portscan")
+    preprocess(r"Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv")
+    retrain_model()
+    loadmodel()
+    testfile = "test2.csv" 
+    resultfile = "results2.csv" 
+    resulttxt = "result2.txt"
+    duplicate_file(testfile, resultfile)
+    pred = predict_packet_types_from_test_data(testfile)
+    normal, sus = write_results_to_result_file(pred, resultfile, resulttxt)
+    print("Expected Benign: " + str(13) + ", DDoS: " + str(1978) + "\nResult Benign: " + str(normal) + ", DDoS: " + str(sus))
     plot_prediction_dataframe(pred)
 
 def predict_packet_types_from_test_data(testfile): # Feed model experiment data and obtain result, no longer responsible for writing to result file as it was before
