@@ -1,0 +1,15 @@
+Experiment: Subset_D_Edge
+Accuracy: 0.9298
+Precision: 0.9996
+Recall: 0.8737
+F1-Score: 0.9324
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.86      1.00      0.93     68129
+           1       1.00      0.87      0.93     84798
+
+    accuracy                           0.93    152927
+   macro avg       0.93      0.94      0.93    152927
+weighted avg       0.94      0.93      0.93    152927
