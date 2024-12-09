@@ -1,0 +1,15 @@
+Experiment: Subset_A_Normal
+Accuracy: 0.9997
+Precision: 0.0000
+Recall: 0.0000
+F1-Score: 0.0000
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     97718
+           1       0.00      0.00      0.00         0
+
+    accuracy                           1.00     97718
+   macro avg       0.50      0.50      0.50     97718
+weighted avg       1.00      1.00      1.00     97718
