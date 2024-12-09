@@ -1,0 +1,15 @@
+Experiment: Subset_B_Mixed
+Accuracy: 0.9412
+Precision: 0.9998
+Recall: 0.8826
+F1-Score: 0.9375
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.89      1.00      0.94      5000
+           1       1.00      0.88      0.94      5000
+
+    accuracy                           0.94     10000
+   macro avg       0.95      0.94      0.94     10000
+weighted avg       0.95      0.94      0.94     10000
