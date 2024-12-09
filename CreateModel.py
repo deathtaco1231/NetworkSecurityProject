@@ -9,12 +9,12 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
-r'''
+
 #print("Environment is set up successfully!")
 
 #######LOAD AND PREPROCESS THE DATA##########
 # Load the dataset
-original_df = pd.read_csv(r"Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv")
+original_df = pd.read_csv(r"Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv")
 
 #Clean column names
 original_df.columns = original_df.columns.str.strip()
@@ -48,11 +48,10 @@ original_df[fields_to_check] = scaler.fit_transform(original_df[fields_to_check]
 output_path = r"preprocessed_dataset_updated.csv"
 original_df.to_csv(output_path, index=False)
 print("Updated dataset saved successfully to:", output_path)
+
+
+
 r'''
-
-
-
-
 ###########SPLIT THE DATASET INTO TRAINING AND TESTING SET##########
 #Load the preprocessed dataset
 file_path = r"preprocessed_dataset_updated.csv"
@@ -210,3 +209,4 @@ plt.show()
 
 model.save("ddos_detection_model.h5")
 print("Model saved successfully!")
+r'''
