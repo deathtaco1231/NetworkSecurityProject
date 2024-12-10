@@ -180,7 +180,7 @@ def retrain_model():
         X_train, y_train,
         validation_data=(X_test, y_test),
         epochs=10,
-        batch_size=32,
+        batch_size=200,
         class_weight=class_weights
     )
 

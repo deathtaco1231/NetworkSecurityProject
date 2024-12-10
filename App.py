@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 def main():
     experiment_1()
     experiment_2()
+    experiment_3()
 
 def duplicate_file(oldfile, newfile): # Creates the result CSV file, and adds the predicted label column to format it in preparation to have AI model results inserted
     shutil.copyfile(oldfile, newfile)
@@ -37,9 +38,9 @@ def write_results_to_result_file(pred, resultfile, resulttxt):
     txtfile.close()
     return normal, sus
 
-def plot_prediction_dataframe(pred):
+def plot_prediction_dataframe(pred, strheader):
     plt.plot(pred)
-    plt.title('Model Certainty of DDoS Packet')
+    plt.title('Model Certainty of ' + strheader + ' Packet')
     plt.xlabel('Packet')
     plt.ylabel('Certainty')
     plt.legend()
@@ -57,9 +58,9 @@ def experiment_2(): # Each experiment will have its own method, main just needs 
     pred = predict_packet_types_from_test_data(testfile)
     normal, sus = write_results_to_result_file(pred, resultfile, resulttxt)
     print("Expected Benign: " + str(0) + ", DDoS: " + str(2437) + "\nResult Benign: " + str(normal) + ", DDoS: " + str(sus))
-    plot_prediction_dataframe(pred)
+    plot_prediction_dataframe(pred, 'DDoS')
 
-def experiment_1():
+def experiment_1(): # 1 and 2 got mixed up, but they are already in the report in their original order, so just change names here
     print("Experiment 1: Portscan")
     preprocess(r"Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv")
     retrain_model()
@@ -70,8 +71,22 @@ def experiment_1():
     duplicate_file(testfile, resultfile)
     pred = predict_packet_types_from_test_data(testfile)
     normal, sus = write_results_to_result_file(pred, resultfile, resulttxt)
-    print("Expected Benign: " + str(13) + ", DDoS: " + str(1978) + "\nResult Benign: " + str(normal) + ", DDoS: " + str(sus))
-    plot_prediction_dataframe(pred)
+    print("Expected Benign: " + str(13) + ", DDoS: " + str(1978) + "\nResult Benign: " + str(normal) + ", PortScan: " + str(sus))
+    plot_prediction_dataframe(pred, 'PortScan')
+
+def experiment_3():
+    print("Experiment 3: Botnet Ares Attack")
+    preprocess(r"Friday-WorkingHours-Morning.pcap_ISCX.csv")
+    retrain_model()
+    loadmodel()
+    testfile = "test3.csv" 
+    resultfile = "results3.csv" 
+    resulttxt = "result3.txt"
+    duplicate_file(testfile, resultfile)
+    pred = predict_packet_types_from_test_data(testfile)
+    normal, sus = write_results_to_result_file(pred, resultfile, resulttxt)
+    print("Expected Benign: " + str(52) + ", Bot: " + str(47) + "\nResult Benign: " + str(normal) + ", Bot: " + str(sus))
+    plot_prediction_dataframe(pred, 'Bot')
 
 def predict_packet_types_from_test_data(testfile): # Feed model experiment data and obtain result, no longer responsible for writing to result file as it was before
     contents = pd.read_csv(testfile)
